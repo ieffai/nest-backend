@@ -27,6 +27,9 @@ export class UsersService {
     }
     async getUserByEmail(email: string) {
         const user = await this.userRepository.findOne({where: {email}, include: {all: true}})
+        // if(!user) {
+        //     throw new HttpException('No such user', HttpStatus.NOT_FOUND)
+        // } 
         return user
     }
     async addRole(dto: AddRoleDto) {
@@ -40,6 +43,13 @@ export class UsersService {
     }  
 
     async ban(dto: BanUserDto) {
-
+        const user = await this.userRepository.findByPk(dto.userId);
+        if (!user) {
+            throw new HttpException('User not found', HttpStatus.NOT_FOUND)
+        }
+        user.banned = true;
+        user.banReason = dto.banReason;
+        await user.save();
+        return user
     } 
 }

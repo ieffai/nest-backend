@@ -1,7 +1,7 @@
 import { BanUserDto } from './dto/ban-user.dto';
 import { AddRoleDto } from './dto/add-role.dto';
 import { RolesGuard } from './../auth/roles.guard';
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './users.model';
 import { UsersService } from './users.service';
